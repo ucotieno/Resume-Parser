@@ -158,7 +158,7 @@ def extract_from_image(path: str | Path) -> ExtractionResult:
     path = Path(path)
     warnings: list[str] = []
     img = Image.open(path)
-    text = pytesseract.image_to_string(img)
+    text = pytesseract.image_to_string(img) #extract text from the image using Tesseract OCR
     if not text.strip():
         warnings.append("OCR returned no text — check image quality/resolution")
     return ExtractionResult(
@@ -212,8 +212,6 @@ def extract(path: str | Path) -> ExtractionResult:
 
 
 # --- CLI ---------------------------------------------------------------------
-input_dir = r"C:\Users\25471\Desktop\Resume Parser Project\resume_samples"
-output_dir = r"C:\Users\25471\Desktop\Resume Parser Project\extracted_outputs"
 
 def process_directory(input_dir: str | Path, output_dir: str | Path) -> None:
     """
@@ -240,16 +238,13 @@ def process_directory(input_dir: str | Path, output_dir: str | Path) -> None:
             print(f"[FAILED] {f.name}: {e}")
 
 
-output = process_directory(input_dir, output_dir)
-
-
 if __name__ == "__main__":
     if len(sys.argv) == 3:
-        process_directory(sys.argv[1], sys.argv[2])
+        process_directory(sys.argv[1], sys.argv[2]) #process the input directory and output directory specified in the command line arguments
     elif len(sys.argv) == 2:
-        result = extract(sys.argv[1])
+        result = extract(sys.argv[1]) #extract text from the single resume file specified in the command line argument
         print(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
-    else:
+    else: #returnsan error message if the command line arguments are not valid -> this is the case when arguments are less than 2 or greater than 3
         print("Usage:")
         print("  Single file:  python extract_text.py <resume_file>")
         print("  Batch mode:   python extract_text.py <input_dir> <output_dir>")
