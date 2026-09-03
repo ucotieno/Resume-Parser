@@ -192,7 +192,6 @@ def _clean_text(text: str) -> str:
 
 SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".png", ".jpg", ".jpeg"}
 
-
 def extract(path: str | Path) -> ExtractionResult:
     """Route a file to the right extractor based on its extension."""
     path = Path(path)
@@ -210,10 +209,11 @@ def extract(path: str | Path) -> ExtractionResult:
         raise ExtractionError(
             f"Unsupported file type '{ext}'. Supported: {sorted(SUPPORTED_EXTENSIONS)}"
         )
-    
 
 
 # --- CLI ---------------------------------------------------------------------
+input_dir = r"C:\Users\25471\Desktop\Resume Parser Project\resume_samples"
+output_dir = r"C:\Users\25471\Desktop\Resume Parser Project\extracted_outputs"
 
 def process_directory(input_dir: str | Path, output_dir: str | Path) -> None:
     """
@@ -239,7 +239,8 @@ def process_directory(input_dir: str | Path, output_dir: str | Path) -> None:
         except ExtractionError as e:
             print(f"[FAILED] {f.name}: {e}")
 
-output = process_directory(r"C:\Users\25471\Desktop\Resume Parser Project\resume_samples", r"C:\Users\25471\Desktop\Resume Parser Project\extracted_outputs")
+
+output = process_directory(input_dir, output_dir)
 
 
 if __name__ == "__main__":
