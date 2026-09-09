@@ -1,3 +1,11 @@
+# Ignore resume Files
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.doc
+*.docx
+
 file_extract.py
 /extracted_outputs
 /resume_samples
